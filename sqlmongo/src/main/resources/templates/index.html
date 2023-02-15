@@ -10,11 +10,14 @@
 
     <h1>List of Games</h1>
 
-    <!-- <form data-th-action="@{/(offset=${next})}" method="get">
-        <input type="Submit" data-th-value="'Next ' + ${limit}">
-    </form> -->
-
-    <form data-th-action="@{/}" method="GET">
+    <span data-th-unless="${previous lt 0}">
+        <form data-th-action="@{/}" method="get">
+            <input type="hidden" name="offset" data-th-value="${previous}">
+            <input type="submit" data-th-value="'Previous ' + ${limit}">
+        </form>
+    </span>
+    
+    <form data-th-action="@{/}" method="get">
         <input type="hidden" name="offset" data-th-value=${next}>
         <input type="submit" data-th-value="'Next ' + ${limit}">
     </form>

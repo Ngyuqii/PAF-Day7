@@ -24,6 +24,7 @@ public class GameController {
     @RequestParam(defaultValue = "0") int offset, Model model){
         
         List<Game> listOfGames = gameSvc.getGames(limit, offset);
+        
         model.addAttribute("games", listOfGames);
         model.addAttribute("limit", limit);
         model.addAttribute("previous", offset - limit);
