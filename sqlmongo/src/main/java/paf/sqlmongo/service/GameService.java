@@ -1,12 +1,13 @@
-package paf.sqlmongo.services;
+package paf.sqlmongo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import paf.sqlmongo.model.Game;
-import paf.sqlmongo.repositories.GameRepository;
+import paf.sqlmongo.repository.GameRepository;
 
 @Service
 public class GameService {
@@ -21,5 +22,10 @@ public class GameService {
 	public List<Game> getGames(int limit, int offset) {
         return gameRepo.getGames(limit, offset);
     }
+
+    //Method to retrieve game details by game id
+    public Optional<Game> getGameByGId(int gameId) {
+        return gameRepo.getGameByGId(gameId);
+    } 
 
 }

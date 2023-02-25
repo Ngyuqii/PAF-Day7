@@ -1,7 +1,10 @@
-package paf.sqlmongo.repositories;
+package paf.sqlmongo.repository;
+
+import static paf.sqlmongo.repository.SqlQueries.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,7 +12,6 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import paf.sqlmongo.model.Game;
-import static paf.sqlmongo.repositories.SqlQueries.*;
 
 @Repository
 public class GameRepository {
@@ -18,7 +20,7 @@ public class GameRepository {
     private JdbcTemplate template;
 
     //Methods to retrieve all games with limit and offset
-    //SQL_SELECTGAMES = "select gid, name from game limit ? offset ?"
+    //SQL_SELECTGAMES = "SELECT gid, name FROM game LIMIT ? OFFSET ?"
 	public List<Game> getGames() {
 		return getGames(30, 0);
 	}
@@ -26,13 +28,27 @@ public class GameRepository {
 
 		List<Game> games = new LinkedList<>();
 
+		//SqlRowSet object holds the result from a queryForRowSet()
 		SqlRowSet rs = template.queryForRowSet(SQL_SELECTGAMES, limit, offset);
 		while (rs.next()) {
-			games.add(Game.create(rs));
+			games.add(Game.createGame(rs));
         }
 
 		return games;
 
 	}
-    
+
+	//Method to retrieve game details by game id
+	//SQL_SELECTGAMEBYID = "SELECT * FROM game WHERE gid = ?"
+	public Optional<Game> getGameByGId(int gameId) {
+
+		SqlRowSet rs = template.queryForRowSet(SQL_SELECTGAMEBYID, gameId);
+		if (!rs.next()) {
+			return Optional.empty();
+		}
+		else {
+			return Optional.of(Game.createGameDetails(rs));
+		}
+	}
+   
 }
