@@ -8,8 +8,10 @@ public class Constants {
 
     //All use fields
     public static final String FIELD_PKID = "_id";
-    public static final String FIELD_ID = "id";
-    public static final String FIELD_NAME = "name";
+    public static final String FIELD_GAMEID = "gid";
+    public static final String FIELD_COMMENTID = "c_id";
+    public static final String FIELD_USERNAME = "user";
     public static final String FIELD_RATING = "rating";
+    public static final String FIELD_COMMENT = "c_text";
     
 }

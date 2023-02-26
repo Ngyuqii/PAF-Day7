@@ -10,7 +10,7 @@
 
 ### Query and Post to a document database (MongoDB)
 - Import data (Files: game.json and comment.json) into a new MongoDB database - database bgg, collections game and comment.
-- Posting of user comments creates comment document into comment collection in mongodb (POST /game/comment). Document includes the followinng:
+- Posting of user comments inserts comment document into comment collection in mongodb (POST /game/comment). Document includes the followinng:
     1. Primary Key _id" : ObjectId
     2. Randomly generated user id
     3. User name
